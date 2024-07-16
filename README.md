@@ -17,7 +17,7 @@ Running thre replication files require:
 
 The release provides zipped versions of the following folders. These contain all the intermediate results of the scripts, so that the outputs of the paper (i.e. figures /tables) can be generated directly from them, without requiring a full re-run of the entire analysis.
 
-- `/data`: contains the empirical data used in the multivariate ARCH MCS analysis (Oxford-Man realized volatility library of Heber *et. al* 2009).
+- `/data`: contains the empirical data used in the multivariate ARCH MCS analysis (Oxford-Man realized volatility library, Heber *et. al* 2009, version 0.3).
 - `/forecasts`: contains the raw 4800 multivariate ARCH forecasts used in the MCS analysis
 - `/logs`: contains the run logs of all the parallelised scripts (MCS benchmarking, forecast generation and MCS partition analysis)
 - `/losses`: contains the forecasts losses used in the MCS and partition analyses, as well as the results of the analyses.
@@ -45,3 +45,7 @@ The various scripts should be run in the following order, as the outputs of earl
 - `mArch_loss_calculation.py` - Calculate the 8 sets of forecast losses (2 samples, 2 horizons and 2 volatility proxies).
 - `parallel_mArch_mcs_partition.py` - Run the parallelised 16 MCS partition analysis (2 bootstrap specifications per loss).
 - `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (summary table components for main body, full tables for appendix)
+
+## Reference:
+
+Heber, Gerd, Asger Lunde, Neil Shephard and Kevin K. Sheppard (2009) "Oxford-Man Institute's realized library", Oxford-Man Institute, University of Oxford.

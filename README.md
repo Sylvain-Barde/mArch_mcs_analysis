@@ -1,17 +1,17 @@
 # mArch_mcs_analysis
 
-This repository contains the replication files for "A fast algorithm for finding the confidence set of large model collections"
+This repository contains the replication files for sections 4 and 5 of "A fast algorithm for finding the confidence set of large model collections"
 
 ## Requirements and Installation
 
-Running thre replication files require:
+Running the replication files requires:
 - The `fastMCS` toolbox with dependencies installed.
 - The `mArch` toolbox with dependencies installed.
 - Additional packages specified in `requirements_pip.txt` and `requirements_conda.txt`, to be installed using `pip` and `conda` respectively.
 
 *NOTE*: This repo contains a copy of the `fastMCS` and `mArch` toolboxes in the state used for generating the results/figures in the release. These copies are not updated/maintained, for the latest versions of these toolboxes, refer to the relevant repository.
 
-*NOTE*: the main run files were are parallelised on HPC nodes, therefore any attempt at replication should take into account this computational requirement. This is particularly the3 case for the Monte-Carlo analysis, which assumes 20 cores are available with 25GB per core. The files are provided for the sake of transparency and replication, and all results are provided in the associated release (see below).
+*NOTE*: the main run files were are parallelised on HPC nodes, therefore any attempt at replication should take into account this computational requirement. This is particularly the case for the Monte-Carlo analysis, which assumes 20 cores are available with 25GB per core. The files are provided for the sake of transparency and replication, and all intermediate/final results and outputs are provided in the associated release (see below).
 
 ## Release contents
 
@@ -44,7 +44,7 @@ The various scripts should be run in the following order, as the outputs of earl
 
 - `mArch_loss_calculation.py` - Calculate the 8 sets of forecast losses (2 samples, 2 horizons and 2 volatility proxies).
 - `parallel_mArch_mcs_partition.py` - Run the parallelised 16 MCS partition analysis (2 bootstrap specifications per loss).
-- `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (summary table components for main body, full tables for appendix)
+- `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (16 summary table components for main body, 16 full tables for appendix)
 
 ## Reference:
 

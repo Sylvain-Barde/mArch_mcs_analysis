@@ -4,7 +4,6 @@
 # Directories containing simulations/results (too large for direct push)
 data/
 forecasts/
-forecasts_wrk/
 logs/
 losses/
 montecarlo/

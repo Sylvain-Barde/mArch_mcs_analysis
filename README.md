@@ -46,7 +46,7 @@ The various scripts should be run in the following order, as the outputs of earl
 
 - `mArch_loss_calculation.py` - Calculate the 8 sets of forecast losses (2 samples, 2 horizons and 2 volatility proxies).
 - `parallel_mArch_mcs_partition.py` - Run the parallelised 16 MCS partition analysis (2 bootstrap specifications per loss).
-- `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (32 summary table components for main body - 16 nalaysis $\times$ 2 summary views, 16 full tables for appendix)
+- `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (32 summary table components for main body - 16 analayses $\times$ 2 summary views, 16 full tables for appendix)
 
 ## Reference:
 

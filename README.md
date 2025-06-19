@@ -21,7 +21,7 @@ The release provides zipped versions of the following folders. These contain all
 - `/forecasts`: contains the raw 4800 multivariate ARCH forecasts used in the MCS analysis, in two subfolders (one per empirical sample). Note that due to the large number of forecast models, the folder is broken down into 8 separate zipped files which together allow the overall `/forecasts` folder and its subfolders to be reconstructed.
 - `/logs`: contains the run logs of all the parallelised scripts (MCS benchmarking, forecast generation and MCS partition analysis)
 - `/losses`: contains the forecasts losses used in the MCS and partition analyses, as well as the results of the analyses.
-- `/montecarlo`: contains results and outputs of the Monte-Carlo benchmarking of the fast updating MCS algorithm (section 4 of the manuscript).
+- `/montecarlo`: contains results and outputs of the Monte-Carlo benchmarking and large-scale power analysis of the fast updating MCS algorithm (section 4 of the manuscript).
 - `/outputs`: contains outputs of the multivariate ARCH MCS analysis.
 
 ## Run sequence:
@@ -32,6 +32,8 @@ The various scripts should be run in the following order, as the outputs of earl
 
 - `parallel_fastMCS_benchmark.py` - Run the parallelised Monte Carlo benchmarking exercise.
 - `fastMCS_benchmark_outputs.py` - Generate outputs for the Monte Carlo benchmarking exercise.
+- `parallel_fastMCS_power.py` - Run the parallelised Monte Carlo large-scale power exercise.
+- `fastMCS_power_outputs.py` - Generate outputs for the Monte Carlo power exercise.
 
 ### 2. Multivariate ARCH forecast comparison (Section 5)
 
@@ -44,7 +46,7 @@ The various scripts should be run in the following order, as the outputs of earl
 
 - `mArch_loss_calculation.py` - Calculate the 8 sets of forecast losses (2 samples, 2 horizons and 2 volatility proxies).
 - `parallel_mArch_mcs_partition.py` - Run the parallelised 16 MCS partition analysis (2 bootstrap specifications per loss).
-- `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (16 summary table components for main body, 16 full tables for appendix)
+- `mArch_mcs_outputs.py` - Run the full MCS analysis and generate the tables for the paper (32 summary table components for main body - 16 nalaysis $\times$ 2 summary views, 16 full tables for appendix)
 
 ## Reference:
 

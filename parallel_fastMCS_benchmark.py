@@ -266,7 +266,7 @@ def benchmarkMCS(inputs):
         losses = genLosses(lmbda, rho, phi, M, N, seed = i + seed*50)
         
         # -- Run MCS with 2 fast algorithms - same seed for all
-        mcsEst2 = mcs(seed = seed)
+        mcsEst2 = mcs(seed = seed, verbose = False)
         mcsEst2.addLosses(losses)
         mcsEst2.run(B, b, bootstrap = 'block')
         incl2, excl2 = mcsEst2.getMCS(alpha = 0.1)
@@ -274,7 +274,7 @@ def benchmarkMCS(inputs):
         tScore2 = mcsEst2.tScore
         pVals2 = mcsEst2.pVals
             
-        mcsEst1 = mcs(seed = seed)
+        mcsEst1 = mcs(seed = seed, verbose = False)
         mcsEst1.addLosses(losses)
         mcsEst1.run(B,b, bootstrap = 'block', algorithm = '1-pass')
         incl1, excl1 = mcsEst1.getMCS(alpha = 0.1)
@@ -313,7 +313,7 @@ def benchmarkMCS(inputs):
         
         # If model collection size is below threshold, run elimination as well
         if M < 1000:
-            mcsEst0 = mcs(seed = seed)
+            mcsEst0 = mcs(seed = seed, verbose = False)
             mcsEst0.addLosses(losses)
             mcsEst0.run(B,b, bootstrap = 'block', algorithm = 'elimination')
             incl0, excl0 = mcsEst0.getMCS(alpha = 0.1)
@@ -393,9 +393,9 @@ if __name__ == '__main__':
     
     # Set benchmarking parameters here
     numSeeds = 20
-    baseSeed = 80           # Set to [0, 20, 40, 60, 80]
-    baseSkip = 6000        # Set to 1000 for N=250, 6000 for N=30
-    N = 30                 # Set to [30, 250]
+    baseSeed = 180           # Set to [0, 20, 40, 60, 80]
+    baseSkip = 1000        # Set to 1000 for N=250, 11000 for N=30
+    N = 250                # Set to [30, 250]
     B = 1000
     b = 2
     

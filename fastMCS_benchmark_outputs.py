@@ -3,7 +3,7 @@
 Created on Tue Mar 28 10:19:39 2023
 
 This script produces the outputs for the fastMCS benchmarking exercise.
-(figure 1, tables 1, 2 and 3 in the paper).
+(figure 1, tables 1 and 7 in the paper).
 
 @author: Sylvain Barde, University of Kent
 """
@@ -18,6 +18,9 @@ from scipy.stats import mode
 save = True     # Set to True to save output
 color = True     # Set to True to generate color figures (B & W otherwise)
 num_mods = 4482  # Use for projection in conclusion (from mArch)
+
+numMcIter = 200
+batchSize = 20
 
 # Iterate over sample size runs (30 and 250)
 for N in [30,250]:
@@ -35,9 +38,8 @@ for N in [30,250]:
             os.makedirs(savePath,mode=0o777)
     
     # Load all seed runs into the same dict for processing
-    baseSeeds = [0,20,40,60,80]
     mcDict = {}
-    for baseSeed in baseSeeds:
+    for baseSeed in range(0, numMcIter, batchSize):
     
         fileName = '/baseSeed_{:d}.pkl'.format(baseSeed)
     
@@ -138,35 +140,37 @@ for N in [30,250]:
                         mods[:,None],
                         mods[:,None]**2,
                         mods[:,None]**3),
-                       axis = 1)
+                        axis = 1)
     
     b_t0 = (np.linalg.inv(X_short_3.transpose() @ X_short_3) 
             @ (X_short_3.transpose() @ np.mean(t0,axis = 1)))
-    b_t1 = (np.linalg.inv(X_long_2.transpose() @ X_long_2)
-            @ (X_long_2.transpose() @ np.mean(t1,axis = 1)))
+    b_t2 = (np.linalg.inv(X_long_3.transpose() @ X_long_3)
+            @ (X_long_3.transpose() @ np.mean(t2,axis = 1)))
     b_mem0 = (np.linalg.inv(X_short_2.transpose() @ X_short_2)
               @ (X_short_2.transpose() @ np.mean(mem0,axis = 1)))
     b_mem1 = (np.linalg.inv(X_long_1.transpose() @ X_long_1)
-              @ (X_long_1.transpose() @ np.mean(mem1,axis = 1)))
+               @ (X_long_1.transpose() @ np.mean(mem1,axis = 1)))
+    
     
     # Calculate scaling plots and their position 
     y_pad = 0.10
-    scale_t0 = np.log10(mods**3 * b_t0[-1])
-    scale_t1 = np.log10(mods**2 * b_t1[-1])
-    scale_mem0 = np.log10(mods**2 * b_mem0[-1])
-    scale_mem1 = np.log10(mods * b_mem1[-1])
+
+    scale_t0 = np.log10(mods**3)
+    scale_t1 = np.log10(mods**2)
+    scale_mem0 = np.log10(mods**2)
+    scale_mem1 = np.log10(mods)
     
     diff_t0 = np.min(
         np.log10(np.mean(t0, axis = 1)) - scale_t0[0:numElimination])
-    diff_t1 = np.min(
-        np.log10(np.mean(t1, axis = 1)) - scale_t1)
+    diff_t1 = np.max(
+        np.log10(np.mean(t2, axis = 1)) - scale_t1)
     diff_mem0 = np.min(
         np.log10(np.mean(mem0, axis = 1)) - scale_mem0[0:numElimination])
     diff_mem1 = np.min(
         np.log10(np.mean(mem1, axis = 1)) - scale_mem1)
     
     scale_t0 -= y_pad - diff_t0
-    scale_t1 -= y_pad - diff_t1
+    scale_t1 += y_pad + diff_t1
     scale_mem0 -= y_pad - diff_mem0
     scale_mem1 -= y_pad - diff_mem1
     
@@ -393,7 +397,7 @@ for N in [30,250]:
             stubs=labels,
             headers=header,
             title=('Monte Carlo comparison of Two-pass fast MCS algorithm '+
-                   'performance'),
+                   'performance, N={:d}'.format(N)),
         )
     
     print(table)
@@ -417,7 +421,7 @@ for N in [30,250]:
         scalingLabels.append('$M = {:d}$'.format(M))
         scalingValues[i,0] = b_t0[0] + b_t0[1]*M + b_t0[2]*M**2 + b_t0[3]*M**3
         scalingValues[i,1] = b_mem0[0] + b_mem0[1]*M + b_mem0[2]*M**2
-        scalingValues[i,2] = b_t1[0] + b_t1[1]*M + b_t1[2]*M**2
+        scalingValues[i,2] = b_t2[0] + b_t2[1]*M + b_t2[2]*M**2 + b_t2[3]*M**3
         scalingValues[i,3] = b_mem1[0] + b_mem1[1]*M
     
     
